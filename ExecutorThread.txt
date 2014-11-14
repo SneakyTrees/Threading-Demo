@@ -1,0 +1,37 @@
+class ExecutorThread extends Thread{
+	Timer ExecutorTimer;
+	int endPoint;
+	
+	ExecutorThread(int end){
+		endPoint = end;
+		ExecutorTimer = new Timer();
+		this.start();
+	}
+
+	//initial thread
+	void run(){
+		long start = System.nanoTime();
+		for(int i = 0; i > gameEventList.length(); i++){
+			//end of events reached check
+			if(i == endPoint)
+				break;
+			//remove event if it is expired
+			if(ListenerThread.gameEventList.get(i).getRemainingTicks() < 0)
+				//queue event to be removed
+				ListenerThread.gameEventList.get(i).remove();
+				i = i-1;
+		}
+		
+
+		//execute event
+		gameEventList.get(i).execute();
+
+		//schedule task to sleep the thread after for the remaining time up to 50ms
+		if(System.nanoTime() - start < 50000000)
+			ExecutorTimer.scheduleTask(new ExecutorTask(this), System.nanoTime() - start);
+		}
+			
+		if(System.nanoTimer() - start > 50000000)
+			System.out.println("Cycle larger than 50ms");	
+	}
+}
