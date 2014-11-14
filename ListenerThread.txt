@@ -1,0 +1,12 @@
+class ListenerThread extends Thread{
+	ArrayList<GameEvent> gameEventList = new ArrayList();
+	
+	ListenerThread(){
+	}
+
+	//register all ActionListeners to this object
+	
+	void run(){
+		//log all ActionEvents according to registered ActionListeners at all times
+	}
+}
