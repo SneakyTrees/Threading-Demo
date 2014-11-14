@@ -1,0 +1,9 @@
+class ExecutorTask extends TimerTask{
+	ExecutorTask(){}
+	
+	public void run(Thread t){
+		//sleep thread until 50ms have passed, then open up again
+		t.sleep(0, 50000000)
+	}
+}
+	
